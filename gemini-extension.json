@@ -1,0 +1,11 @@
+{
+  "name": "quant-agent-shop",
+  "version": "1.0.0",
+  "description": "Pay-per-call web search, page reading, cited answers and PDFs over x402 (USDC on Base). No API key.",
+  "mcpServers": {
+    "quantagentshop": {
+      "httpUrl": "https://quantagentshop.com/mcp"
+    }
+  },
+  "contextFileName": "GEMINI.md"
+}

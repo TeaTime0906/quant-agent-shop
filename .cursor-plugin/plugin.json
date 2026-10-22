@@ -1,0 +1,14 @@
+{
+  "name": "quant-agent-shop",
+  "version": "1.0.0",
+  "description": "Pay-per-call web search, page reading, cited answers and PDFs for agents, paid in USDC on Base over x402. No API key.",
+  "author": {
+    "name": "Quant Agent Shop",
+    "email": "johnlenontaken@gmail.com"
+  },
+  "homepage": "https://quantagentshop.com",
+  "repository": "https://github.com/TeaTime0906/quant-agent-shop",
+  "license": "MIT",
+  "keywords": ["x402", "mcp", "web-search", "pdf", "usdc", "base", "ai-agents"],
+  "logo": "logo.png"
+}
