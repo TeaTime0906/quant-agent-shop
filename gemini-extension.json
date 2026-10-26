@@ -1,7 +1,7 @@
 {
   "name": "quant-agent-shop",
-  "version": "1.0.0",
-  "description": "Pay-per-call web search, page reading, cited answers and PDFs over x402 (USDC on Base). No API key.",
+  "version": "1.1.0",
+  "description": "Pay-per-call search, page reading, cited answers, PDFs, OCR, sanctions screening, company records, domain, email and SEO checks for agents, paid in USDC on Base over x402. No API key.",
   "mcpServers": {
     "quantagentshop": {
       "httpUrl": "https://quantagentshop.com/mcp"

@@ -2,22 +2,47 @@
 
 # Quant Agent Shop
 
-Quant Agent Shop ([quantagentshop.com](https://quantagentshop.com)) sells single calls to web tools for AI agents: web search, page reading to Markdown, cited research answers and PDFs. Each call is paid in USDC on Base over the [x402](https://www.x402.org/) protocol, so there is no account, sign-up or API key. A call without payment gets HTTP 402 with the price; the agent's x402 client pays and retries. Failed calls are not charged. The same tools are available over remote MCP.
+Quant Agent Shop ([quantagentshop.com](https://quantagentshop.com)) sells single API calls to AI agents: web search (Google web, news, places, shopping, patents, papers), page reading to Markdown, cited research answers, summaries and structured extraction, PDFs and OCR, sanctions screening, SEC filings, GLEIF company records, domain, email and phone checks, SEO audits, IP lookup and weather. Each call is paid in USDC on Base over the [x402](https://www.x402.org/) protocol, so there is no account, sign-up or API key. A call without payment gets HTTP 402 with the price; the agent's x402 client pays and retries. Failed calls are not charged. The same tools are available over remote MCP.
 
 ## Routes and prices
 
-Current list (more routes are being added; [`/v1/sample`](https://quantagentshop.com/v1/sample) always has the live list with example inputs and outputs, free):
+All 31 routes ([`/v1/sample`](https://quantagentshop.com/v1/sample) always has the live list with example inputs and outputs, free):
 
-| Route | Price per call (USD) | What it does |
-|---|---|---|
-| `POST /v1/web-search` | 0.004 | Up to 20 ranked Google web results with title, URL, snippet and date |
-| `POST /v1/fetch-page` | 0.002 | A public page's main content as clean Markdown or plain text |
-| `POST /v1/research-answer` | 0.009 | A 120 to 300 word answer with numbered citations and the source URLs read |
-| `POST /v1/pdf/from-markdown` | 0.003 | Markdown rendered to an A4 PDF (base64 in JSON) |
-| `POST /v1/pdf/from-brief` | 0.006 | A 400 to 900 word document written from a short brief, as PDF plus Markdown |
-| `POST /v1/pdf/from-url` | 0.003 | A web page's main content as a clean A4 PDF |
+| Route | USD per call | Group | What it does |
+|---|---|---|---|
+| `POST /v1/news-search` | 0.01 | Search | News search |
+| `POST /v1/paper-search` | 0.01 | Search | Scholarly paper search |
+| `POST /v1/patent-search` | 0.01 | Search | Patent search |
+| `POST /v1/places-search` | 0.01 | Search | Local business search |
+| `POST /v1/shopping-search` | 0.01 | Search | Product search |
+| `POST /v1/web-search` | 0.01 | Search | Web search |
+| `POST /v1/web-search-batch` | 0.0115 | Search | Batch Google web search |
+| `POST /v1/fetch-page` | 0.01 | Web pages and SEO | Page fetch |
+| `POST /v1/page-change` | 0.01 | Web pages and SEO | Page change check |
+| `POST /v1/seo-audit` | 0.01 | Web pages and SEO | On-page SEO audit of one URL |
+| `POST /v1/seo-audit-pro` | 0.05 | Web pages and SEO | SEO audit with fixes |
+| `POST /v1/url-status` | 0.01 | Web pages and SEO | URL status check |
+| `POST /v1/ocr` | 0.01 | Documents and PDFs | Image text (OCR) |
+| `POST /v1/pdf/from-brief` | 0.01 | Documents and PDFs | Brief to PDF |
+| `POST /v1/pdf/from-markdown` | 0.01 | Documents and PDFs | Markdown to PDF |
+| `POST /v1/pdf/from-url` | 0.01 | Documents and PDFs | Web page to PDF |
+| `POST /v1/pdf-text` | 0.01 | Documents and PDFs | PDF text |
+| `POST /v1/qr` | 0.01 | Documents and PDFs | QR code |
+| `POST /v1/extract` | 0.01 | Answers and extraction | Structured extraction |
+| `POST /v1/research-answer` | 0.01 | Answers and extraction | Cited research answer |
+| `POST /v1/summarize` | 0.03 | Answers and extraction | Summary |
+| `POST /v1/company-lookup` | 0.01 | Compliance and company records | Company legal-entity lookup from the global LEI system (GLEIF) |
+| `POST /v1/counterparty-check` | 0.03 | Compliance and company records | Counterparty check in one call |
+| `POST /v1/sanctions-screen` | 0.01 | Compliance and company records | Sanctions screening against the US Treasury OFAC SDN and Consolidated lists |
+| `POST /v1/sec-filings` | 0.01 | Compliance and company records | SEC EDGAR filings lookup |
+| `POST /v1/domain-lookup` | 0.01 | Lookups | Domain lookup in one call |
+| `POST /v1/email-auth-check` | 0.01 | Lookups | Email authentication check for a domain |
+| `POST /v1/email-check` | 0.01 | Lookups | Email address check without sending mail |
+| `POST /v1/ip-geo` | 0.01 | Lookups | IP address lookup for one public IPv4 or IPv6 address |
+| `POST /v1/phone-check` | 0.01 | Lookups | Phone number check |
+| `POST /v1/weather` | 0.01 | Lookups | Weather forecast for coordinates or a city name |
 
-Payment: USDC on Base mainnet (`eip155:8453`), x402 version 2, `exact` scheme.
+Prices run from US$0.01 to US$0.05 a call. Payment: USDC on Base mainnet (`eip155:8453`), x402 version 2, `exact` scheme.
 
 ## Calling over HTTP with x402
 
@@ -62,7 +87,7 @@ The wallet needs USDC on Base. Gas is paid by the facilitator, not the caller.
 ## Remote MCP
 
 - Endpoint (streamable HTTP): `https://quantagentshop.com/mcp`
-- Tools: `quantagentshop_web_search`, `quantagentshop_fetch_page`, `quantagentshop_research_answer`, `quantagentshop_pdf_from_markdown`, `quantagentshop_pdf_from_brief`, `quantagentshop_pdf_from_url`
+- Tools: one per route (31), named `quantagentshop_<route>` with dashes as underscores, for example `quantagentshop_sanctions_screen`, plus a free `quantagentshop_quote` that returns a route's price
 - Payment follows the [x402 MCP transport](https://github.com/coinbase/x402/blob/main/specs/transports-v2/mcp.md): an unpaid call returns `isError: true` with the payment terms in `structuredContent`; the client retries with the signed payment in `_meta["x402/payment"]` and gets the receipt back in `_meta["x402/payment-response"]`.
 
 Listing tools is free with any MCP client. Paying for a call needs a client that implements the x402 MCP transport. With [`@x402/mcp`](https://www.npmjs.com/package/@x402/mcp):
