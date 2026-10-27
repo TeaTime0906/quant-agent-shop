@@ -1,6 +1,6 @@
 ---
 name: quant-agent-shop
-description: Pay-per-call APIs from Quant Agent Shop (quantagentshop.com), paid in USDC on Base over x402 with no account or API key. Use when an agent needs web search (Google web, news, places, shopping, patents, papers), page reading to Markdown, cited research answers, summaries and structured extraction, PDFs and OCR, sanctions screening, SEC filings, GLEIF company records, domain, email and phone checks, SEO audits, IP lookup and weather, and it has an x402-capable wallet or client.
+description: Pay-per-call APIs from Quant Agent Shop (quantagentshop.com), paid in USDC on Base over x402 with no account or API key. Use when an agent needs web search (Google web, news, places, shopping, patents, papers), page reading to Markdown, cited research answers, summaries and structured extraction, PDFs and OCR, sanctions screening, SEC filings, GLEIF company records, domain, email and phone checks, SEO audits and reports, local business lead lists, IP lookup and weather, and it has an x402-capable wallet or client.
 license: MIT
 compatibility: Needs network access and a wallet holding USDC on Base (eip155:8453) with an x402 v2 client, for example @x402/fetch, @x402/mcp or the x402 Python package.
 metadata:
@@ -18,41 +18,43 @@ Single paid API calls. Base URL: `https://quantagentshop.com`. Every route is `P
 - `GET https://quantagentshop.com/llms.txt` says when to use each route.
 - `GET https://quantagentshop.com/openapi.json` has the full request and response schemas.
 
-Routes at the time of writing (31; `/v1/sample` is the live list):
+Routes at the time of writing (33; `/v1/sample` is the live list):
 
 | Route | USD | Use for |
 |---|---|---|
-| `/v1/news-search` | 0.01 | News search |
-| `/v1/paper-search` | 0.01 | Scholarly paper search |
-| `/v1/patent-search` | 0.01 | Patent search |
-| `/v1/places-search` | 0.01 | Local business search |
-| `/v1/shopping-search` | 0.01 | Product search |
-| `/v1/web-search` | 0.01 | Web search |
+| `/v1/lead-list` | 0.2 | Local business lead list |
+| `/v1/news-search` | 0.0099 | News search |
+| `/v1/paper-search` | 0.0099 | Scholarly paper search |
+| `/v1/patent-search` | 0.0099 | Patent search |
+| `/v1/places-search` | 0.0099 | Local business search |
+| `/v1/shopping-search` | 0.0099 | Product search |
+| `/v1/web-search` | 0.0099 | Web search |
 | `/v1/web-search-batch` | 0.0115 | Batch Google web search |
-| `/v1/fetch-page` | 0.01 | Page fetch |
-| `/v1/page-change` | 0.01 | Page change check |
-| `/v1/seo-audit` | 0.01 | On-page SEO audit of one URL |
+| `/v1/fetch-page` | 0.0099 | Page fetch |
+| `/v1/page-change` | 0.0099 | Page change check |
+| `/v1/seo-audit` | 0.0099 | On-page SEO audit of one URL |
 | `/v1/seo-audit-pro` | 0.05 | SEO audit with fixes |
-| `/v1/url-status` | 0.01 | URL status check |
-| `/v1/ocr` | 0.01 | Image text (OCR) |
-| `/v1/pdf/from-brief` | 0.01 | Brief to PDF |
-| `/v1/pdf/from-markdown` | 0.01 | Markdown to PDF |
-| `/v1/pdf/from-url` | 0.01 | Web page to PDF |
-| `/v1/pdf-text` | 0.01 | PDF text |
-| `/v1/qr` | 0.01 | QR code |
-| `/v1/extract` | 0.01 | Structured extraction |
-| `/v1/research-answer` | 0.01 | Cited research answer |
+| `/v1/seo-report` | 0.05 | SEO audit report as PDF |
+| `/v1/url-status` | 0.0099 | URL status check |
+| `/v1/ocr` | 0.0099 | Image text (OCR) |
+| `/v1/pdf/from-brief` | 0.0099 | Brief to PDF |
+| `/v1/pdf/from-markdown` | 0.0099 | Markdown to PDF |
+| `/v1/pdf/from-url` | 0.0099 | Web page to PDF |
+| `/v1/pdf-text` | 0.0099 | PDF text |
+| `/v1/qr` | 0.0099 | QR code |
+| `/v1/extract` | 0.0099 | Structured extraction |
+| `/v1/research-answer` | 0.0099 | Cited research answer |
 | `/v1/summarize` | 0.03 | Summary |
-| `/v1/company-lookup` | 0.01 | Company legal-entity lookup from the global LEI system (GLEIF) |
+| `/v1/company-lookup` | 0.0099 | Company legal-entity lookup from the global LEI system (GLEIF) |
 | `/v1/counterparty-check` | 0.03 | Counterparty check in one call |
-| `/v1/sanctions-screen` | 0.01 | Sanctions screening against the US Treasury OFAC SDN and Consolidated lists |
-| `/v1/sec-filings` | 0.01 | SEC EDGAR filings lookup |
-| `/v1/domain-lookup` | 0.01 | Domain lookup in one call |
-| `/v1/email-auth-check` | 0.01 | Email authentication check for a domain |
-| `/v1/email-check` | 0.01 | Email address check without sending mail |
-| `/v1/ip-geo` | 0.01 | IP address lookup for one public IPv4 or IPv6 address |
-| `/v1/phone-check` | 0.01 | Phone number check |
-| `/v1/weather` | 0.01 | Weather forecast for coordinates or a city name |
+| `/v1/sanctions-screen` | 0.0099 | Sanctions screening against the US Treasury OFAC SDN and Consolidated lists |
+| `/v1/sec-filings` | 0.0099 | SEC EDGAR filings lookup |
+| `/v1/domain-lookup` | 0.0099 | Domain lookup in one call |
+| `/v1/email-auth-check` | 0.0099 | Email authentication check for a domain |
+| `/v1/email-check` | 0.0099 | Email address check without sending mail |
+| `/v1/ip-geo` | 0.0099 | IP address lookup for one public IPv4 or IPv6 address |
+| `/v1/phone-check` | 0.0099 | Phone number check |
+| `/v1/weather` | 0.0099 | Weather forecast for coordinates or a city name |
 
 Pick the cheapest route that answers the task: search for links, fetch-page to read a known URL, research-answer only when a sourced written answer is needed. PDFs come back as `pdf_base64`; decode before saving.
 
